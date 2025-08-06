@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Unauthorized from './pages/Unauthorized';
-import AdminPanel from './pages/AdminPanel';
+import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
 import ProtectedRoute from './routes/ProtectedRoute';
 import './App.css'
 
@@ -13,16 +13,18 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={
+
+        <Route path="/user/dashboard" element={
           <ProtectedRoute allowedRoles={['admin', 'user']}>
-            <Dashboard />
+            <UserDashboard />
           </ProtectedRoute>
         } />
-        <Route path="/admin" element={
+        <Route path="/admin/dashboard" element={
           <ProtectedRoute allowedRoles={['admin']}>
-            <AdminPanel />
+            <AdminDashboard />
           </ProtectedRoute>
         } />
+        
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
